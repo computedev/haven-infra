@@ -26,4 +26,15 @@ def can_access_screening_report(
     Return True if actor may view report, False otherwise. Fail closed — if anything needed to
     make this determination is missing (tenant not found, property not found), return False.
     """
-    raise NotImplementedError("Implement this.")
+    tenant = next((item for item in tenants if item.id == report.tenant_id), None)
+    if tenant is None:
+        return False
+
+    property_record = next(
+        (item for item in properties if item.id == tenant.property_id),
+        None,
+    )
+    if property_record is None:
+        return False
+
+    return property_record.landlord_account_id == actor.landlord_account_id

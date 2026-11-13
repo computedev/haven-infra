@@ -20,8 +20,8 @@ resource "aws_s3_bucket_lifecycle_configuration" "listing_media_archive" {
     status = "Enabled"
 
     transition {
-      days          = 30
-      storage_class = "GLACIER"
+      days          = 0
+      storage_class = "INTELLIGENT_TIERING"
     }
   }
 }
